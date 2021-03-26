@@ -6,11 +6,20 @@ class State extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      completedChanged: false,
       list: [
         {
           id: 1,
           title: '标题1',
+          completed: false
+        },
+        {
+          id: 2,
+          title: '标题2',
+          completed: false
+        },
+        {
+          id: 3,
+          title: '标题3',
           completed: false
         }
       ]
@@ -48,7 +57,6 @@ class State extends React.Component {
   // 切换完成状态
   toggleCompleted = (id) => {
     this.setState({
-      completedChanged: !this.state.completedChanged,
       // 使用 map 返回不可变值
       list: this.state.list.map(item => {
         const completed = item.id === id
@@ -84,15 +92,9 @@ class State extends React.Component {
       list: this.getData()
     })
   }
-  componentDidUpdate(preProps, preState) {
-    console.log('DidUpdate')
-    // console.log(this.state.completedChanged, preState.completedChanged)
-    if (this.state.list.length !== preState.list.length) {
-      this.saveData(this.state.list)
-    }
-    if(this.state.completedChanged !== preState.completedChanged){
-      this.saveData(this.state.list)
-    }
+  componentWillUnmount() {    
+    console.log('willUnount')
+    this.saveData(this.state.list)
   }
 }
 

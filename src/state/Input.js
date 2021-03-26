@@ -9,9 +9,14 @@ class Input extends React.Component {
   }
   render() {
     return <div>
-      <input value={this.state.title} onChange={this.changeHandler} />
+      <input value={this.state.title} onChange={this.changeHandler} onKeyPress={this.enterHandler} />
       <button onClick={this.addHandler}>添加</button>
     </div>
+  }
+  enterHandler = (e) => {
+    if (e.charCode === 13) {
+      this.addHandler();
+    }
   }
   changeHandler = (e) => {
     const newTitle = e.target.value
